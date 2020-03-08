@@ -13,3 +13,6 @@ Thumbs.db
 
 # Editor Files
 .vscode/
+
+# Test Coverage Files
+.coverage
