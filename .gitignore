@@ -10,3 +10,6 @@ db.sqlite3
 
 # Windows thumbnail files
 Thumbs.db
+
+# Editor Files
+.vscode/
