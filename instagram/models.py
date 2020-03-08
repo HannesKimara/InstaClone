@@ -67,7 +67,7 @@ class Image(models.Model):
     image_name = models.CharField(max_length=32)
     caption = models.TextField()
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    likes = models.IntegerField(default=1)
+    likes = models.IntegerField(default=0)
 
     def save_image(self):
         self.save()
