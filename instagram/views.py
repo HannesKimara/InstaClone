@@ -8,7 +8,7 @@ from .models import Profile, User, Image
 @login_required(login_url='/accounts/login/')
 def index(request):
     current_user = request.user
-    all_images = Image.get_user_images(current_user)
+    all_images = Image.objects.all()
     return render(request, 'index.html', {'images': all_images})
 
 @login_required(login_url='/accounts/login/')
@@ -40,11 +40,14 @@ def create_post(request):
             image.user = current_user
             image.save()
 
-            return render(request, 'index.html')
+            return redirect(index)
     else:
         form = ImageForm()
 
     return render(request, 'new_photo.html', {'form': form})
         
+def search(request):
+    if request.GET['q']:
+        users = Profile.search_by_username(request.GET['q'])
 
-    
+    return render(request, 'search.html', {'users': users})

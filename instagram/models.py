@@ -47,6 +47,11 @@ class Profile(models.Model, ModelMethods):
     profile_photo = CloudinaryField('profile_photo', default = "image/upload/v1583754861/person_placeholder_l8auvx.jpg")
     bio = models.TextField(default = '')
     user = models.OneToOneField(User, on_delete = models.CASCADE, default=None)
+
+    @staticmethod
+    def search_by_username(search_username):
+        searched_users = User.objects.filter(username__icontains = search_username).all()
+        return searched_users
     
 # class User(User, models.Model):
 #     profile = models.OneToOneField(Profile, on_delete = models.CASCADE)
