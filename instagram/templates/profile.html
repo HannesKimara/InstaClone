@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+<div class = "container">
+    <div class = "row">
+        <div class = "col l3 m3 s3">
+            <img src = "{{in_user.profile.profile_photo}}" width="180px" height="180px" style="border-radius: 50%;">
+        </div>
+        <div class = "col l1 m1 s1"></div>
+        <div class = "col l7 m7 s7">
+            <div class="">
+                <h6 class = "ig-bold-text">{{user.username}}</h6>
+            </div>
+            <div class = "inline">
+                <span class = "ig-bold-text">Posts</span>
+                <span>0</span>
+                <span class = "ig-bold-text">Followers</span>
+                <span>0</span>
+                <span class = "ig-bold-text">Following</span>
+                <span>0</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+{%endblock%}

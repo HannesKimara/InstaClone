@@ -42,19 +42,17 @@ class ModelMethods:
 
         self.save()
 
-class Profile(models.Model, ModelMethods):
-    profile_photo = CloudinaryField('profile_photo', default = "instagram/static/images/person_placeholder.jpg")
-    bio = models.TextField(default = '')
 
+class Profile(models.Model, ModelMethods):
+    profile_photo = CloudinaryField('profile_photo', default = "/static/images/person_placeholder.jpg")
+    bio = models.TextField(default = '')
+    
 class User(AbstractUser, models.Model):
-    full_name = models.CharField(max_length=64)
     profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
 
     def save_user(self):
         self.profile = Profile()
         self.profile.save()
-        self.split_name = self.full_name.split()
-        self.first_name, self.last_name = self.split_name[0], self.split_name[-1]
 
         self.save()
 

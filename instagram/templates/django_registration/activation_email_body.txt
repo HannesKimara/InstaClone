@@ -1,5 +1,0 @@
-Hi {{user.username}}
-<p>Welcome to InstaClone</p>
-
-Follow the link to complete your account activation
-
