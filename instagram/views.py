@@ -15,8 +15,14 @@ def index(request):
 def myprofile(request):
     current_user = request.user
 
-    all_images = Image.get_user_images(current_user)
-    profile = Profile.objects.filter(user=current_user).first()
+    if Profile.objects.filter(user=current_user).first():
+        all_images = Image.get_user_images(current_user)
+        profile = Profile.objects.filter(user=current_user).first()
+    else:
+        profile = Profile(user=current_user)
+        profile.save()
+
+    all_images = Image.objects.filter(user = current_user).all()
 
     return render(request, 'profile.html', {'user': current_user, 'images': all_images, 'profile' : profile})
 
