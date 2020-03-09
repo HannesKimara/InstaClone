@@ -29,8 +29,9 @@ def myprofile(request):
     print(dir(current_user))
     return render(request, 'profile.html', {'in_user': new_user, 'user': current_user, 'images': all_images})
 
-    
-
+@login_required(login_url='/accounts/login')
+def create_post(request):
+    pass
         
 
     
