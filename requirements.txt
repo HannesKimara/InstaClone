@@ -7,10 +7,12 @@ Django==3.0.4
 django-registration==3.1
 gunicorn==20.0.4
 mimesis==4.0.0
+Pillow==7.0.0
 psycopg2==2.8.4
 python-decouple==3.3
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.1
 urllib3==1.25.8
+whitenoise==5.0.1
 wincertstore==0.2
