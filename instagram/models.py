@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User as AbstractUser
+from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 class ModelMethods:
@@ -44,21 +44,22 @@ class ModelMethods:
 
 
 class Profile(models.Model, ModelMethods):
-    profile_photo = CloudinaryField('profile_photo', default = "/static/images/person_placeholder.jpg")
+    profile_photo = CloudinaryField('profile_photo', default = "image/upload/v1583754861/person_placeholder_l8auvx.jpg")
     bio = models.TextField(default = '')
+    user = models.OneToOneField(User, on_delete = models.CASCADE, default=None)
     
-class User(AbstractUser, models.Model):
-    profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
+# class User(User, models.Model):
+#     profile = models.OneToOneField(Profile, on_delete = models.CASCADE)
 
-    def save_user(self):
-        self.profile = Profile()
-        self.profile.save()
+#     def save_user(self):
+#         self.profile = Profile()
+#         self.profile.save()
 
-        self.save()
+#         self.save()
 
-    def deactivate_user(self):
-        self.is_active = False
-        self.save()
+#     def deactivate_user(self):
+#         self.is_active = False
+#         self.save()
 
 class Image(models.Model):
     image = CloudinaryField('image')

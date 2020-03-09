@@ -4,18 +4,18 @@
 <div class="row">
     <div class="col l3 m3 s12"></div>
     <div class="col l5 m5 s12">
+      {% for image in images %}
         <div class="card">
             <div class="card-content">
-                <a href="#" class = "black-text" style="font-weight: bold;">Traveler</a><i class="material-icons right">more_vert</i>
+                <a href="#" class = "black-text" style="font-weight: bold;">{{image.user.username}}</a><i class="material-icons right">more_vert</i>
               </div>
             <div class="card-image">
-              <img src="https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+              <img src="{{image.image.url}}">
             </div>
             <div class="card-content">
               <div class = "container-fluid"><i class="material-icons">favorite_border</i><i class="material-icons">chat_bubble_outline</i></div>
               <p style="font-weight: bold;">2899 likes</p>
-              <p><span style = "font-weight: bold;">Traveler</span> am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+              <p><span style = "font-weight: bold;">{{image.user.username}}</span> {{image.caption}}</p>
             </div>
             <div class="card-action">
                 <form action="/comment">
@@ -27,6 +27,7 @@
                 </form>
             </div>
           </div>
+          {% endfor %}
     </div>
 </div>
 {% endblock %}
