@@ -18,7 +18,6 @@ def myprofile(request):
     all_images = Image.get_user_images(current_user)
     profile = Profile.objects.filter(user=current_user).first()
 
-    print(dir(profile.user))
     return render(request, 'profile.html', {'user': current_user, 'images': all_images, 'profile' : profile})
 
 @login_required(login_url='/accounts/login')
