@@ -1,1 +1,32 @@
 {% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col l3 m3 s12"></div>
+    <div class="col l5 m5 s12">
+        <div class="card">
+            <div class="card-content">
+                <a href="#" class = "black-text" style="font-weight: bold;">Traveler</a><i class="material-icons right">more_vert</i>
+              </div>
+            <div class="card-image">
+              <img src="https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+            </div>
+            <div class="card-content">
+              <div class = "container-fluid"><i class="material-icons">favorite_border</i><i class="material-icons">chat_bubble_outline</i></div>
+              <p style="font-weight: bold;">2899 likes</p>
+              <p><span style = "font-weight: bold;">Traveler</span> am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+                <form action="/comment">
+                    <div class="">
+                        <div class="">
+                        <input id="comment" type="text" class="validate" placeholder="Comment">
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}
