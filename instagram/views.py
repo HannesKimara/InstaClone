@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as AbstractUser
-from .models import Profile, User
+from .models import Profile, User, Image
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -24,8 +24,10 @@ def myprofile(request):
         except Exception:
             pass
 
+    all_images = Image.get_user_images(new_user)
+
     print(dir(current_user))
-    return render(request, 'profile.html', {'in_user': new_user, 'user': current_user})
+    return render(request, 'profile.html', {'in_user': new_user, 'user': current_user, 'images': all_images})
 
     
 

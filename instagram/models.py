@@ -77,6 +77,11 @@ class Image(models.Model):
         self.caption = new_caption
         self.save()
 
+    @classmethod
+    def get_user_images(cls, search_user):
+        all_images = cls.objects.filter(user = search_user).all()
+        return all_images
+
 class Comment(models.Model, ModelMethods):
     comment = models.TextField()
     user = models.ForeignKey(User, on_delete = models.CASCADE)
