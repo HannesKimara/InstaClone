@@ -51,3 +51,24 @@ def search(request):
         users = Profile.search_by_username(request.GET['q'])
 
     return render(request, 'search.html', {'users': users})
+
+def view_image(request, image_id):
+    curr_image = Image.objects.filter(pk = image_id).first()
+    return render(request, 'image_view.html', {'image': curr_image})
+
+def like_image(request, image_id):
+    image = Image.objects.filter(pk=image_id).first()
+    image.likes += 1
+    image.save()
+    return redirect('instagram:image', image_id)
+
+def user_profile(request, username):
+    search_user = User.objects.filter(username=username).first()
+
+    if search_user:
+        user_profile = search_user.profile
+        all_images = Image.objects.filter(user = search_user).all()
+    else:
+        return redirect('instagram:index')
+
+    return render(request, 'uprofile.html', {'profile': user_profile, 'images': all_images})
