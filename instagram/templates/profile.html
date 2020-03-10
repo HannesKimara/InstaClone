@@ -4,11 +4,12 @@
 <br><br><br>
 <div class = "container">
     <div class = "row">
-        <div class = "col l3 m3 s3">
+        <div class = "col l1 m1 s1"></div>
+        <div class = "col l2 2 s2">
             <img src = "{{profile.profile_photo.url}}" width="180px" height="180px" style="border-radius: 50%;">
         </div>
         <div class = "col l1 m1 s1"></div>
-        <div class = "col l7 m7 s7">
+        <div class = "col l6 m7 s7">
             <div class="">
                 <h6 class = "ig-bold-text">{{profile.user.username}}</h6>
             </div>
@@ -29,7 +30,9 @@
             {% if images %}
                 {% for image in images %}
                 <div class = "col l3 m3 s3">
-                    <img src = "{{image.image.url}}" width="100%">
+                    <a href = "/image/{{image.id}}">
+                        <img src = "{{image.image.url}}" class = "hoverable" width="100%">
+                    </a>
                 </div>
                 {% endfor %}
             {% else %}

@@ -11,5 +11,6 @@ urlpatterns = [
     path('search', views.search, name="search"),
     path('image/<int:image_id>', views.view_image, name="image"),
     path('image/like/<int:image_id>', views.like_image, name="like"),
+    path('image/comment/<int:image_id>', views.comment_image, name="comment"),
     path('profile/<str:username>', views.user_profile, name="profile")
 ]

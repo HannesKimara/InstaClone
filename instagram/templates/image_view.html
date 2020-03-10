@@ -7,7 +7,7 @@
 <div class="card">
     <div class="card-content">
       <img src="{{image.user.profile.profile_photo.url}}" alt="" class="circle left" width="30px" height="30px">
-      <a href="#" class = "black-text ml-1" style="font-weight: bold;">{{image.user.username}}</a><i class="material-icons right">more_vert</i>
+      <a href="/profile/{{image.user.username}}" class = "black-text ml-1" style="font-weight: bold;">{{image.user.username}}</a>
       </div>
     <div class="card-image">
       <img src="{{image.image.url}}">
@@ -20,21 +20,24 @@
       <p><span style = "font-weight: bold;">{{image.user.username}}</span> {{image.caption}}</p>
     </div>
     <div class="card-action">
-        <form action="/comment">
+      {% csrf_token %}
+        <form action="/image/comment/{{image.id}}" method="GET">
             <div class="">
                 <div class="">
-                <input id="comment" type="text" class="validate" placeholder="Comment">
+                <input id="comment" type="text" class="validate" placeholder="Comment" name="comment">
                 </div>
             </div>
         </form>
     </div>
     <br>
 </div>
-<div class="ml-1"><span>Comments</span></div>
+<div class="ml-1"><span>Comments ({{image.comment_set.all | length}})</span></div>
     <ul class="collection">
+      {% for comment in image.comment_set.all %}
         <li>
-          <div class="collection-item"><span style = "font-weight: bold;">user</span> <span>Lorem ipsum dolor sit amet.</span></div>
+          <div class="collection-item"><span style = "font-weight: bold;">user</span> <span>{{comment.comment}}</span></div>
         </li>
+      {% endfor %}
     </ul>
   </div>
 </div>

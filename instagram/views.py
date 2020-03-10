@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as AbstractUser
 
 from .forms import ImageForm
-from .models import Profile, User, Image
+from .models import Profile, User, Image, Comment
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -40,7 +40,7 @@ def create_post(request):
             image.user = current_user
             image.save()
 
-            return redirect(index)
+            return redirect("instagram:index")
     else:
         form = ImageForm()
 
@@ -56,10 +56,15 @@ def view_image(request, image_id):
     curr_image = Image.objects.filter(pk = image_id).first()
     return render(request, 'image_view.html', {'image': curr_image})
 
+@login_required(login_url='/accounts/login')
 def like_image(request, image_id):
     image = Image.objects.filter(pk=image_id).first()
-    image.likes += 1
-    image.save()
+    if image:
+        image.likes += 1
+        image.save()
+    else:
+        return redirect('instagram:index')
+
     return redirect('instagram:image', image_id)
 
 def user_profile(request, username):
@@ -72,3 +77,18 @@ def user_profile(request, username):
         return redirect('instagram:index')
 
     return render(request, 'uprofile.html', {'profile': user_profile, 'images': all_images})
+
+@login_required(login_url='/accounts/login')
+def comment_image(request, image_id):
+    current_user = request.user
+    image = Image.objects.filter(pk = image_id).first()
+
+    if request.method == 'GET':
+        if image and request.GET.get('comment'):
+            new_comment = Comment(user = current_user, image = image, comment=request.GET.get('comment'))
+            new_comment.save()
+            return redirect('instagram:image', image_id)
+        else:
+            return redirect('instagram:image', image_id)
+    else:
+        return redirect('instagram:index')
