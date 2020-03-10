@@ -8,7 +8,6 @@ class UserModelTest(TestCase):
         self.gen = Generic()
         self.new_user = User(
             username = self.gen.person.username(),
-            full_name = self.gen.person.full_name(),
             email = self.gen.person.email(),
             password = self.gen.person.password()
         )
@@ -35,7 +34,6 @@ class ImageModelTest(TestCase):
         self.gen = Generic()
         self.new_user = User(
             username = self.gen.person.username(),
-            full_name = self.gen.person.full_name(),
             email = self.gen.person.email(),
             password = self.gen.person.password()
         )
@@ -58,7 +56,6 @@ class CommentModelTest(TestCase):
         self.gen = Generic()
         self.new_user = User(
             username = self.gen.person.username(),
-            full_name = self.gen.person.full_name(),
             email = self.gen.person.email(),
             password = self.gen.person.password()
         )
@@ -87,7 +84,6 @@ class ImageLikeModelTest(TestCase):
         self.gen = Generic()
         self.new_user = User(
             username = self.gen.person.username(),
-            full_name = self.gen.person.full_name(),
             email = self.gen.person.email(),
             password = self.gen.person.password()
         )
@@ -112,14 +108,12 @@ class FollowersMModelTest(TestCase):
         self.gen = Generic()
         self.account_user = User(
             username = self.gen.person.username(),
-            full_name = self.gen.person.full_name(),
             email = self.gen.person.email(),
             password = self.gen.person.password()
         )
 
         self.follower_user = User(
             username = self.gen.person.username(),
-            full_name = self.gen.person.full_name(),
             email = self.gen.person.email(),
             password = self.gen.person.password()
         )

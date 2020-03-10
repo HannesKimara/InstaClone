@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User as AbstractUser
+from django.contrib.auth import logout
 
 from .forms import ImageForm
-from .models import Profile, User, Image, Comment
+from .models import Profile, User, Image, Comment, ImageLike
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -58,10 +59,15 @@ def view_image(request, image_id):
 
 @login_required(login_url='/accounts/login')
 def like_image(request, image_id):
+    current_user = request.user
     image = Image.objects.filter(pk=image_id).first()
-    if image:
+    user_image_likes = image.imagelike_set.filter(user = current_user).first()
+
+    if image and not user_image_likes:
         image.likes += 1
         image.save()
+        image_like = ImageLike(user=current_user, image = image)
+        image_like.save()
     else:
         return redirect('instagram:index')
 
@@ -92,3 +98,9 @@ def comment_image(request, image_id):
             return redirect('instagram:image', image_id)
     else:
         return redirect('instagram:index')
+
+@login_required(login_url='/accounts/login')
+def logout_user(request):
+    logout(request)
+
+    return redirect('instagram:index')

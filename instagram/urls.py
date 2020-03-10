@@ -12,5 +12,6 @@ urlpatterns = [
     path('image/<int:image_id>', views.view_image, name="image"),
     path('image/like/<int:image_id>', views.like_image, name="like"),
     path('image/comment/<int:image_id>', views.comment_image, name="comment"),
-    path('profile/<str:username>', views.user_profile, name="profile")
+    path('profile/<str:username>', views.user_profile, name="profile"),
+    path('accounts/logout', views.logout_user, name="logout")
 ]
