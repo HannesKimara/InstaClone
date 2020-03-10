@@ -4,7 +4,7 @@ from django.contrib.auth.models import User as AbstractUser
 from django.contrib.auth import logout
 
 from .forms import ImageForm
-from .models import Profile, User, Image, Comment, ImageLike
+from .models import Profile, User, Image, Comment, ImageLike, Followers
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -78,11 +78,14 @@ def user_profile(request, username):
 
     if search_user:
         user_profile = search_user.profile
+        user_followers = Followers.objects.filter(user = search_user).all()
+        user_following = Followers.objects.filter(follower = search_user).all()
+
         all_images = Image.objects.filter(user = search_user).all()
     else:
         return redirect('instagram:index')
 
-    return render(request, 'uprofile.html', {'profile': user_profile, 'images': all_images})
+    return render(request, 'uprofile.html', {'profile': user_profile, 'images': all_images, 'followers': user_followers, 'following': user_following})
 
 @login_required(login_url='/accounts/login')
 def comment_image(request, image_id):
@@ -98,6 +101,25 @@ def comment_image(request, image_id):
             return redirect('instagram:image', image_id)
     else:
         return redirect('instagram:index')
+
+@login_required(login_url='/accounts/login')
+def follow_user(request, user_id):
+    current_user = request.user
+    user_follow = Followers.objects.filter(follower=current_user).first()
+    tobe_user = User.objects.filter(pk = user_id).first()
+
+    if tobe_user is None:
+        print("Did this")
+        return redirect('instagram:index')
+
+    if user_follow:
+        return redirect('instagram:profile', tobe_user.username)
+    else:
+        new_follow = Followers(user = tobe_user, follower = current_user)
+        new_follow.save()
+
+    return redirect('instagram:profile', tobe_user.username)
+
 
 @login_required(login_url='/accounts/login')
 def logout_user(request):
