@@ -22,6 +22,7 @@
               <p><span style = "font-weight: bold;">{{image.user.username}}</span> {{image.caption}}</p>
             </div>
             <div class="card-action">
+              <p>Comments ({{image.comment_set.all | length}})</p>
               {% csrf_token %}
                 <form action="/image/comment/{{image.id}}" method="GET">
                     <div class="">

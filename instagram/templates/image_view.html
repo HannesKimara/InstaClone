@@ -35,7 +35,7 @@
     <ul class="collection">
       {% for comment in image.comment_set.all %}
         <li>
-          <div class="collection-item"><span style = "font-weight: bold;">user</span> <span>{{comment.comment}}</span></div>
+          <div class="collection-item"><span style = "font-weight: bold;">{{comment.user.username}}</span> <span>{{comment.comment}}</span></div>
         </li>
       {% endfor %}
     </ul>
