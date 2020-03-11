@@ -4,6 +4,7 @@ from django.contrib.auth.models import User as AbstractUser
 from django.contrib.auth import logout
 
 from .forms import ImageForm
+from .email import send_welcome_email
 from .models import Profile, User, Image, Comment, ImageLike, Followers
 
 @login_required(login_url='/accounts/login/')
@@ -22,6 +23,7 @@ def myprofile(request):
     else:
         profile = Profile(user=current_user)
         profile.save()
+        send_welcome_email(current_user.username, current_user.email)
 
     all_images = Image.objects.filter(user = current_user).all()
 
